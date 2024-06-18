@@ -19,9 +19,7 @@ function trueMailValidate(value) {
         },
         (error) => {
           console.log(error);
-          //resolve(false);
-          // TODO: uncomment line below to mock reesponse
-          resolve(value === "triaton00@gmail.com");
+          resolve(false);
         }
       );
   });
