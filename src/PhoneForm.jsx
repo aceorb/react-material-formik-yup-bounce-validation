@@ -3,10 +3,19 @@ import { Formik } from "formik";
 import TextField from "@material-ui/core/TextField";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
-import _ from "lodash";
 
 // Yup
 let yup = require("yup");
+
+let bounceTimeout = null;
+function debounce(fn, args, timeout) {
+  if (bounceTimeout) {
+    clearTimeout(bounceTimeout);
+  }
+  return new Promise((resolve) => {
+    bounceTimeout = setTimeout(() => resolve(fn(args)), timeout);
+  });
+}
 
 function trueMailValidate(value) {
   return new Promise((resolve, reject) => {
@@ -25,7 +34,7 @@ function trueMailValidate(value) {
   });
 }
 
-const checkEmail = _.debounce(trueMailValidate, 500);
+const checkEmail = (value) => debounce(trueMailValidate, value, 500);
 
 let validateSchema = yup.object().shape({
   email: yup
